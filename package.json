@@ -1,0 +1,26 @@
+{
+  "name": "corona-lametric",
+  "main": "app.js",
+  "description": "Corona Lametric",
+  "version": "0.0.1",
+  "private": false,
+  "engines": {
+    "node": "12.*"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bluebird": "~3.7.2",
+    "cfenv": "^1.2.3",
+    "csv-parser": "^2.3.3",
+    "express": "~4.17.1",
+    "needle": "^2.5.2",
+    "node-cache": "~5.1.2"
+  },
+  "author": "Martin Henke",
+  "devDependencies": {
+    "eslint": "~7.10.0",
+    "eslint-config-loopback": "~13.1.0"
+  }
+}
