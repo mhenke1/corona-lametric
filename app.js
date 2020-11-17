@@ -24,7 +24,19 @@ function getData() {
                     }
                     return false;
                 }).map(function (ort) {
-                    ortsname = ort.Landkreis.split(" ")[1];
+                    ort.Landkreis = ort.Landkreis.split(" ")[1];
+                    if (ort.Landkreis == "Hildesheim") {
+                        ort.Landkreis = "HI"
+                    }
+                    if (ort.Landkreis == "Köln") {
+                        ort.Landkreis = "K"
+                    }
+                    if (ort.Landkreis == "Reutlingen") {
+                        ort.Landkreis = "RT"
+                    }
+                    return ort;
+                }).map(function (ort) {
+                    ortsname = ort.Landkreis;
                     risiko = Math.round(parseFloat(ort.Kontaktrisiko));
                     faelle = Math.round(parseFloat(ort.FaellePro100kLetzte7Tage));
                     frame = {
