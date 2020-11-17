@@ -6,11 +6,11 @@ const csv = require('csv-parser')
 const NodeCache = require('node-cache');
 const dataCache = new NodeCache({stdTTL: 3600, checkperiod: 7200});
 
-const results = [];
-const frames = [];
-
 function getData() {
     return new Promise((resolve, reject) => {
+        const results = [];
+        const frames = [];
+
         needle
             .get('https://pavelmayer.de/covid/risks/data.csv')
             .pipe(csv())
