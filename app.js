@@ -12,7 +12,7 @@ function getData() {
         const frames = [];
 
         needle
-            .get('https://pavelmayer.de/covid/risks/data.csv')
+            .get('https://pavelmayer.de/covid/risks/all-series.csv')
             .pipe(csv())
             .on('data', (data) => results.push(data))
             .on('end', () => {
