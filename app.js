@@ -14,15 +14,28 @@ function getData() {
         needle
             .get('https://pavelmayer.de/covid/risks/all-series.csv')
             .pipe(csv())
-            .on('data', (data) => results.push(data))
+            .on('data', (data) => {
+                if (data.Landkreis.includes("Reutlingen") ||
+                    data.Landkreis.includes("Hildesheim") ||
+                    data.Landkreis.includes("Köln")) {
+                    results.push(data)
+                }
+            })
             .on('end', () => {
+                const letzterStand = results.reduce((prev, current) => parseInt(prev.DatenstandTag) > parseInt(current.DatenstandTag) ? prev : current).DatenstandTag
                 filteredResults = results.filter(function (ort) {
-                    if (ort.Landkreis.includes("Reutlingen") ||
-                        ort.Landkreis.includes("Hildesheim") ||
-                        ort.Landkreis.includes("Köln")) {
+                    if (ort.DatenstandTag == letzterStand) {
                         return true;
                     }
                     return false;
+                }).sort((prev, current) => {
+                        if (prev.Kontaktrisiko < current.Kontaktrisiko) {
+                          return 1
+                        } else if (prev.Kontaktrisiko > current.Kontaktrisiko) {
+                          return -1
+                        } else {
+                          return 0
+                        }
                 }).map(function (ort) {
                     ort.Landkreis = ort.Landkreis.split(" ")[1];
                     if (ort.Landkreis == "Hildesheim") {
@@ -38,7 +51,7 @@ function getData() {
                 }).map(function (ort) {
                     ortsname = ort.Landkreis;
                     risiko = Math.round(parseFloat(ort.Kontaktrisiko));
-                    faelle = Math.round(parseFloat(ort.FaellePro100kLetzte7Tage));
+                    faelle = Math.round(parseFloat(ort["InzidenzFallNeu-7-Tage"]));
                     frame = {
                         'text': ortsname + ' 1:' + risiko + ' ' + faelle,
                         'icon': 'a35937',

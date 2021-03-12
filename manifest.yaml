@@ -1,4 +1,0 @@
----
-applications:
- - name: corona-lametric
-   memory: 128M
