@@ -37,6 +37,7 @@ function getData() {
                           return 0
                         }
                 }).map(function (ort) {
+                    //console.log(ort);
                     ort.Landkreis = ort.Landkreis.split(" ")[1];
                     if (ort.Landkreis == "Hildesheim") {
                         ort.Landkreis = "HI"
@@ -51,7 +52,7 @@ function getData() {
                 }).map(function (ort) {
                     ortsname = ort.Landkreis;
                     risiko = Math.round(parseFloat(ort.Kontaktrisiko));
-                    faelle = Math.round(parseFloat(ort["InzidenzFallNeu-7-Tage"]));
+                    faelle = Math.round(parseFloat(ort["InzidenzFallNeu_7TageSumme"]));
                     frame = {
                         'text': ortsname + ' 1:' + risiko + ' ' + faelle,
                         'icon': 'a35937',
